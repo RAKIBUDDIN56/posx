@@ -1,10 +1,12 @@
 const router= require('express').Router();
+const { limiter } = require('../middlewares/auth');
 const stockController = require('./../controllers/stock.controller')
 
-router.route('/addstock').post(stockController.addStock);
-router.route('/stocks').get(stockController.fetchStocks);
-router.route('/updatestock/:id').patch(stockController.updateStock);
 
+router.post('/addstock',limiter,stockController.addStock);
 
+router.get('/stocks',limiter,stockController.fetchAllStocks);
+
+router.patch('/updatestock/:id',limiter,stockController.updateStock);
 
 module.exports=router;

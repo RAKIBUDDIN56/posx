@@ -1,20 +1,34 @@
 const express=require('express');
 const app= express();
 const cors = require('cors');
-const db=require('./services/db')
+require('dotenv').config(); 
+const db=require('./config/dbconfig');
+const router = require('./routes/route_list.js');
+
+// const auth = require("./middlewares/auth.js");
+const errors = require("./middlewares/errors.js");
 
 app.use(cors())
 app.use(express.json())
-const stockRouter = require('./routes/stock.route');
-app.use('/api',stockRouter);
-const authRouter = require('./routes/auth.route');
-app.use('/api',authRouter);
-const employeeRouter = require('./routes/emeployee.route');
-app.use('/api',employeeRouter);
 
-app.listen(5000,()=>{
-    console.log("Server is running");
+// const unless  =require("express-unless");
+// auth.authenticateToken.unless = unless;
+// app.use(
+//     auth.authenticateToken.unless({
+//       path: [
+//         { url: "/api/v1/login", methods: ["POST"] },
+//         { url: "/api/v1/register", methods: ["POST"] },
+//       ],
+//     })
+//   );
 
-})
-    
+app.use('/api/v1',router);
+app.use(errors.errorHandler);
+
+
+
+const port = process.env.PORT || 3000;
+app.listen(port,()=>{
+    console.log('Server started at port:' +port);
+});
 
