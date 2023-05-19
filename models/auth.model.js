@@ -8,11 +8,6 @@ const loginSchema=mongoose.Schema({
     
     })
 
-    // loginSchema.pre("save",async function(next){
-    //     this.createdOn=new Date();
-    //     next();
-    // })
-
     const LoginModel=mongoose.model("loginInfo",loginSchema);
 
     module.exports=LoginModel;
