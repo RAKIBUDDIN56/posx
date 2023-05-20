@@ -7,7 +7,7 @@ exports.addStock = async (req, res, next) => {
         const stock = new StockModel(req.body);
         stock.save().then((results) => {
             console.log(results);
-           
+
             return res.status(200).json({
                 success: true,
                 message: "Stock added successfully",
@@ -16,7 +16,7 @@ exports.addStock = async (req, res, next) => {
 
         }).catch((e) => {
             return next(e);
-            });
+        });
 
     } catch (err) {
         return next(err.message);
@@ -26,7 +26,7 @@ exports.addStock = async (req, res, next) => {
 }
 exports.fetchAllStocks = async (req, res, next) => {
     try {
-        const stockData = await StockModel.find({},{_id:0,__v:0,createdOn:0,updatedOn:0});
+        const stockData = await StockModel.find({}, { _id: 0, __v: 0, createdOn: 0, updatedOn: 0 });
         return res.status(200).json({
             success: true,
             message: "Data fatch successfully",
@@ -53,10 +53,13 @@ exports.updateStock = async (req, res) => {
             $set: stock,
         };
         const stockData = await StockModel.updateOne(filter, updateDoc, options);
-        return res.json({ "success": true, "stocks": stockData })
+        return res.status(200).json({
+            success: true,
+            message: "Item update successfully",
+            data: stockData,
+        })
     } catch (error) {
-        return res.json({ "success": false, "message": error })
-
+        return next(err.message);
     }
 
 }
