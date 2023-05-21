@@ -1,7 +1,7 @@
 const CustomerModel=require('./../models/customer.model')
+const tryCatch=require('./../utils/tryCatch')
 
-
-exports.addCustomer=async (req,res)=>{
+exports.addCustomer=tryCatch(async (req,res)=>{
     console.log(req.body);
 const customer=new CustomerModel(req.body);
 customer.save().then(()=>{
@@ -18,7 +18,8 @@ customer.save().then(()=>{
     
 })
 
-}
+
+})
 exports.updateCustomer=async(req,res,next)=>{
     
     const customerId=req.params.id;
