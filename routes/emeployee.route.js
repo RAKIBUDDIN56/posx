@@ -1,10 +1,10 @@
 const router= require('express').Router();
+const { limiter } = require('../middlewares/auth');
 const employeeController = require('./../controllers/employee.controller')
 const {rateLimiter} =require('../middlewares/auth.middleware')
 
-router.route('/add-employee').post(rateLimiter,employeeController.addEmployee);
-router.route('/employees').get(rateLimiter,employeeController.fetchStocks);
-router.route('/update-stock/:id').patch(rateLimiter,employeeController.updateStock);
-
+router.post('/add-employee',limiter,employeeController.addEmployee);
+router.get('/employees',limiter,employeeController.fetchStocks);
+router.put('/update-stock/:id',limiter,employeeController.updateStock);
 
 module.exports=router;
