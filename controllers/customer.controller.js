@@ -1,7 +1,7 @@
 const CustomerModel=require('./../models/customer.model')
 const tryCatch=require('./../utils/tryCatch')
 
-exports.addCustomer=tryCatch(async (req,res)=>{
+exports.addCustomer=tryCatch.tryCatch(async (req,res)=>{
     console.log(req.body);
 const customer=new CustomerModel(req.body);
 customer.save().then(()=>{
@@ -18,21 +18,20 @@ customer.save().then(()=>{
     
 })
 
-
 })
 exports.updateCustomer=async(req,res,next)=>{
     
     const customerId=req.params.id;
-    console.log(customerId);
+    //console.log(customerId);
 
     try{
           // create a filter for a movie to update
           const filter = { _id: customerId };
           // this option instructs the method to create a document if no documents match the filter
-          const options = { upsert: false,};
-          // create a document that sets the plot of the movie
-          const customer =  CustomerModel(req.body);
-   console.log(customer);     
+          const options = { upsert: true,};
+          // create a document that sets the plot of the 
+          const customer = req.body;
+        console.log(customer);     
   
           const updateDoc = {
               $set: customer,  
