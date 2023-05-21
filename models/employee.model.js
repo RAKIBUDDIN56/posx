@@ -17,15 +17,10 @@ const employeeSchema=mongoose.Schema({
     "createdOn":{type:Date},
     "updatedOn":{type:Date},
     })
-
     employeeSchema.pre("save",async function(next){
         this.createdOn=new Date();
         this.updatedOn=new Date();
         next();
     })
-
     const EmployeeModel=mongoose.model("employee",employeeSchema);
-
-
-
     module.exports=EmployeeModel;

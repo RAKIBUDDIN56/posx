@@ -55,7 +55,7 @@ exports.updateStock = async (req, res) => {
         const stockData = await StockModel.updateOne(filter, updateDoc, options);
         return res.status(200).json({
             success: true,
-            message: "Item update successfully",
+            message: "Item updated successfully",
             data: stockData,
         })
     } catch (error) {
