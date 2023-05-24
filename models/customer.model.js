@@ -21,11 +21,14 @@ const customerSchema=mongoose.Schema({
         this.updatedOn=new Date();
         next();
     })
-    customerSchema.pre('findOneAndUpdate', function(next) {
+    customerSchema.pre(["update", "findOneAndUpdate", "updateOne"] ,function(next) {
         console.log("pre called");
-        
-        // Exclude the '_id' field from being updated
-        {_id:0}
+        const update = this.getUpdate();
+        console.log(update);
+        console.log(update.c_name);
+        delete update._id;
+        this.updatedOn = new Date(); 
+    
         next();
       });
     
