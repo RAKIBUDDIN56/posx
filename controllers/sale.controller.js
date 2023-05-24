@@ -28,16 +28,17 @@ exports.addSale = tryCatch(async (req, res,) => {
 })
 exports.fetchAllSales = tryCatch(async (req, res,) => {
   
-    const saleData = await SaleModel.find({}, { _id: 0, __v: 0, createdOn: 0, updatedOn: 0 }).then((results)=>{
+    const saleData = await SaleModel.find({}, { _id: 0, __v: 0, createdOn: 0, updatedOn: 0 }).lean().then((results)=>{
         return res.status(200).json({
             success: true,
             message: "Data fatch successfully",
-            data: saleData,
+            data: results,
         })
     }).catch((error)=>{
+        console.log(error);
         return res.status(400).send({
             "success":false,
-            "data":e});
+            "data":error});
     })
         
     
@@ -46,30 +47,31 @@ exports.fetchAllSales = tryCatch(async (req, res,) => {
 
 })
 exports.updateSale = tryCatch(async (req, res) => {
-    const stockId = req.params.id;
+    const saleId = req.params.id;
 
     
         // create a filter for a movie to update
-        const filter = { _id: stockId };
+        const filter = { _id: saleId };
         // this option instructs the method to create a document if no documents match the filter
-        const options = { upsert: true };
+        const options = { upsert: false ,new:true};
         // create a document that sets the plot of the movie
-        const stock = SaleModel(req.body);
-        console.log(stock);
-
+        const sale = req.body;
+        console.log(sale);
         const updateDoc = {
-            $set: stock,
+            $set: sale,
         };
-        const stockData = await SaleModel.updateOne(filter, updateDoc, options).then((results)=>{
+        const stockData = await SaleModel.findByIdAndUpdatex(filter, updateDoc, options).then((results)=>{
+            console.log(results);
             return res.status(200).json({
                 success: true,
                 message: "Sale updated successfully",
-                data: stockData,
+                data: results,
             })
         }).catch((error)=>{
+            console.log(error);
             return res.status(400).send({
                 "success":false,
-                "data":e});
+                "data":error});
         })
        
    
