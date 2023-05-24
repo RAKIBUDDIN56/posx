@@ -21,14 +21,10 @@ const customerSchema=mongoose.Schema({
         this.updatedOn=new Date();
         next();
     })
-    customerSchema.pre(["update", "findOneAndUpdate", "updateOne"] ,function(next) {
-        console.log("pre called");
+    customerSchema.pre(["update", "findOneAndUpdate", "updateOne"], function(next) {
         const update = this.getUpdate();
-        console.log(update);
-        console.log(update.c_name);
         delete update._id;
         this.updatedOn = new Date(); 
-    
         next();
       });
     

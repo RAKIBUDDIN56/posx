@@ -22,19 +22,21 @@ customer.save().then(()=>{
 exports.updateCustomer=async(req,res,next)=>{
     
     const customerId=req.params.id;
-    //console.log(customerId);
+    console.log(req.body);
 
     try{
           // create a filter for a movie to update
-          const filter = { _id: customerId };
+          const filter = { _id: customerId, };
           // this option instructs the method to create a document if no documents match the filter
-          const options = { upsert: true,};
+          const options = { upsert: true,new:true};
           // create a document that sets the plot of the 
-          const customer = req.body;
+          const customer =  req.body;
         console.log(customer);     
   
           const updateDoc = {
               $set: customer,  
+              
+            
               
           };
           const customerData = await CustomerModel.findByIdAndUpdate(filter, updateDoc, options);
