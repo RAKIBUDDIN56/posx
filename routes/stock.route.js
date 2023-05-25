@@ -4,10 +4,10 @@ const stockController = require('./../controllers/stock.controller')
 const {rateLimiter} =require('../middlewares/auth.middleware')
 
 
-router.post('/addstock',limiter,stockController.addStock);
+router.post('/stock',limiter,stockController.addStock);
 
-router.get('/stocks',limiter,stockController.fetchAllStocks);
+router.get('/stock',limiter,stockController.fetchAllStocks);
 
-router.patch('/updatestock/:id',limiter,stockController.updateStock);
+router.patch('/stock/:id',limiter,stockController.updateStock);
 
 module.exports=router;

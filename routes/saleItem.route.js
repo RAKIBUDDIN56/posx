@@ -4,10 +4,10 @@ const saleItemController = require('./../controllers/saleItem.controller')
 
 
 
-router.post('/add-saleItem',limiter,saleItemController.addSaleItem);
+router.post('/saleItem',limiter,saleItemController.addSaleItem);
 
-router.get('/saleItems',limiter,saleItemController.fetchAllSaleItems);
+router.get('/saleItem',limiter,saleItemController.fetchAllSaleItems);
 
-router.patch('/update-saleItem/:id',limiter,saleItemController.updateSaleItem);
+router.patch('/saleItem/:id',limiter,saleItemController.updateSaleItem);
 
 module.exports=router;

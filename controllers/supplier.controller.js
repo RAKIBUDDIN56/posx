@@ -25,7 +25,7 @@ exports.updateSuppier=async(req,res,next)=>{
     console.log(req.body);
 
     try{
-          // create a filter for a movie to update
+          // create a filter for a to update
           const filter = { _id: suppierId, };
           // this option instructs the method to create a document if no documents match the filter
           const options = { upsert: false,new:true};
